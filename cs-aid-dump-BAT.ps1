@@ -85,7 +85,7 @@ Write-Log "Serial Number: $((Get-CimInstance Win32_BIOS).SerialNumber)"
 Write-Log "Device Model: $((Get-CimInstance -ClassName Win32_ComputerSystem).Model)"
 
 # Current Time (AEST literal; won’t auto-switch to AEDT)
-Write-Log "First Sync (AEST): $((Get-Date).ToUniversalTime().AddHours(10).ToString('yyyy-MM-dd HH:mm:ss'))"
+Write-Log "Current Time (AEST): $((Get-Date).ToUniversalTime().AddHours(10).ToString('yyyy-MM-dd HH:mm:ss'))"
 
 # MAC Address — prefer physical adapter to avoid virtuals
 Write-Log "MAC Address: $((Get-NetAdapter -Physical | Where-Object { $_.Status -eq 'Up' } | Select-Object -First 1 -ExpandProperty MacAddress))"
