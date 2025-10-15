@@ -67,8 +67,12 @@ try {
     # Output results
     Write-Log "Confirming Crowdstrike is installed on the device!"
     Write-Log "Hostname: $Hostname"
-    reg query "HKLM\System\CurrentControlSet\Services\CSAgent\Sim" /f AG
-    nslookup myip.opendns.com resolver1.opendns.com # get external IP address
+
+    # AID — PowerShell registry provider
+    Write-Log "Agent ID: $(REG QUERY HKLM\System\CurrentControlSet\services\CSAgent\Sim\ /f AG)"
+
+    # External IP — keep it null-safe just in case DNS lookup fails
+    Write-Log ("External IP Address: " + ((nslookup myip.opendns.com resolver1.opendns.com 2>$null | Select-String 'Address:' | Select-Object -Last 1 | ForEach-Object { $_.ToString().Split()[-1] }) | ForEach-Object { if ($_){$_} else {'Not found'} }))
     
 } finally {
     Write-Log "Please copy and paste all of the above to the Zendesk ticket. Thank you!"
