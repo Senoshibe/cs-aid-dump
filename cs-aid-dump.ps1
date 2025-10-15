@@ -65,11 +65,11 @@ try {
     $AgentID = Get-AgentID
 
     # Output results
-    Write-Log "Please copy and paste the below results to the Zendesk ticket. Thank you!"
+    Write-Log "Confirming Crowdstrike is installed on the device!"
     Write-Log "Hostname: $Hostname"
     reg query "HKLM\System\CurrentControlSet\Services\CSAgent\Sim" /f AG
     nslookup myip.opendns.com resolver1.opendns.com # get external IP address
     
 } finally {
-    Write-Log "Done."
+    Write-Log "Please copy and paste all of the above to the Zendesk ticket. Thank you!"
 }
