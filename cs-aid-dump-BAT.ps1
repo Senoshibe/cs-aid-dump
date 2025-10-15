@@ -70,7 +70,7 @@ Write-Log "Confirming Crowdstrike is installed on the device!"
 Write-Log "Hostname: $Hostname"
 
 # AID — PowerShell registry provider + null-safe fallback
-Write-Log ("Agent ID: " + ((Get-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Services\CSAgent\Sim' -ErrorAction SilentlyContinue).AID | Select-Object -First 1 | ForEach-Object { if ($_){$_} else {'Not found'} }))
+Write-Log "Agent ID: $(REG QUERY HKLM\System\CurrentControlSet\services\CSAgent\Sim\ /f AG)"
 
 # External IP — keep it null-safe just in case DNS lookup fails
 Write-Log ("External IP Address: " + ((nslookup myip.opendns.com resolver1.opendns.com 2>$null | Select-String 'Address:' | Select-Object -Last 1 | ForEach-Object { $_.ToString().Split()[-1] }) | ForEach-Object { if ($_){$_} else {'Not found'} }))
