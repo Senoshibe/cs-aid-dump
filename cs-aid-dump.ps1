@@ -41,7 +41,7 @@ function Get-AgentID {
         }
 
         if ($Attempts -ge $MaxAttempts) {
-            Write-Log "Falcon sensor service did not start within the expected time."
+            Write-Log "Crowdstrike isn't installed on this device."
             throw "Falcon sensor service not running after $($MaxAttempts * $WaitTime) seconds."
         }
 
@@ -50,7 +50,7 @@ function Get-AgentID {
         Start-Sleep -Seconds 30
 
     } catch {
-        Write-Log "Failed to retrieve Agent ID: $_"
+        Write-Log "Crowdstrike isn't installed on this device. Failed to retrieve Agent ID: $_"
         throw "Failed to get Agent ID (AID)."
     }
 }
