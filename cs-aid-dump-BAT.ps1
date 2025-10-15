@@ -67,7 +67,7 @@ try {
     # Output results
     Write-Log "Confirming Crowdstrike is installed on the device!"
     Write-Log "Hostname: $Hostname"
-    Write-Log "Agent ID: $((reg query "HKLM\System\CurrentControlSet\Services\CSAgent\Sim" /f AID | Select-String "AID").ToString().Split()[-1])"
+    Write-Log "Agent ID: $((reg query 'HKLM\System\CurrentControlSet\Services\CSAgent\Sim' /f AID 2>$null | Select-String 'AID' | Select-Object -First 1).ToString().Split()[-1])"
     Write-Log "External IP Address: $((nslookup myip.opendns.com resolver1.opendns.com | Select-String "Address:" | Select-Object -Last 1).ToString().Split()[-1])" # get external IP address
     Write-Log "Internal IP Address: $((Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -notlike '169.254.*' -and $_.IPAddress -ne '127.0.0.1' } | Select-Object -First 1 -ExpandProperty IPAddress))"
     Write-Log "Serial Number: $(Get-CimInstance Win32_BIOS | Select-Object SerialNumber)"
