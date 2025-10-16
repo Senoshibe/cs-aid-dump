@@ -75,5 +75,5 @@ try {
     Write-Log ("External IP Address: " + ((nslookup myip.opendns.com resolver1.opendns.com 2>$null | Select-String 'Address:' | Select-Object -Last 1 | ForEach-Object { $_.ToString().Split()[-1] }) | ForEach-Object { if ($_){$_} else {'Not found'} }))
     
 } finally {
-    Write-Log "Please copy and paste all of the above to the Zendesk ticket. Thank you!"
+    Write-Log "Please copy and paste all of the above to the ticket/email. Otherwise, please send to helpdesk@mortgagechoice.com.au Thank you!"
 }
